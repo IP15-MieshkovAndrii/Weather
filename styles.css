@@ -1,0 +1,144 @@
+body{
+    /* background: linear-gradient(90deg, rgb(20, 184, 160) 25%, rgb(134, 1, 100) 75%); */
+    color: white;
+}
+.main{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.temperature{
+    position: relative;
+    width: 100%;
+    aspect-ratio: 10/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.temperature h1{
+    font-size: 6vw;
+    margin:0;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+.temperature h2{
+    font-size: 2.5vw;
+    margin:0;
+}
+
+.temperature h3{
+    font-size: 1.2vw;
+    margin:-1vh 0 3vh 0;
+}
+.temperature h4{
+    font-size: 1vw;
+    margin:0;
+}
+
+.secondData{
+    position: relative;
+    width:80%;
+    aspect-ratio: 2/1.2;
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    margin-top:2vw;
+    gap: 2vw;
+}
+
+.leftContainer{
+    position: relative;
+    width:60%;
+    gap: 2vw;
+    justify-content: space-between;
+
+}
+.dayForecast{
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4/1;
+    border-radius: 20px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.differentData{
+    display: flex;
+    width:49%;
+    position: relative;
+    flex-direction: row;
+    gap: 2vw;
+    width:100%;
+    margin-top:2vw;
+    aspect-ratio: 4/3;
+    align-items: stretch;
+    justify-content: space-between;
+
+}
+.tendaysForecast{
+    width:48%;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-radius: 15px;
+
+}
+.smallDatas{
+    display: flex;
+    position: relative;
+    width:48%;
+    flex-direction: row;
+    gap: 2vw;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+}
+.cube{
+    width:41%;
+    padding: 2%;
+    position: relative;
+    aspect-ratio: 1/1;
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+.rightContainer{
+    position: relative;
+    width:30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.topContainer{
+    position: relative;
+    width: 96%;
+    height: 72.6%;
+    border-radius: 15px;
+    padding: 2%;
+    background-color: rgba(0, 0, 0, 0.3);
+
+}
+.bottomContainer{
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.boxName{
+    font-size: 1vw;
+    color: rgba(255, 255, 255, 0.3);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);;
+}
+
+.cubeData{
+    margin-top:2vh;
+    font-size: 2.5vw;
+}
+.bottomCubeData{
+    position: absolute;
+    bottom:2%;
+    font-size: 0.8vw;
+}
