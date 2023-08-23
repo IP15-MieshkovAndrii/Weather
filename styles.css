@@ -1,7 +1,71 @@
-body{
-    /* background: linear-gradient(90deg, rgb(20, 184, 160) 25%, rgb(134, 1, 100) 75%); */
+body, html{
     color: white;
+    height: 100%;
+    margin: 0;
 }
+.bg {
+    position: fixed;
+    width: 100%;
+    height: 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1;
+  }
+
+.searching{
+    position: absolute;
+    right: 2%;
+    top: 2%;
+    z-index: 1;
+    display: flex;
+    flex-direction: row;
+    height: 4%;
+}
+#cityInput, #searchButton{
+    z-index: 2;
+}
+.adding{
+    background: rgba(217, 217, 217, 0.3);
+    border: 0.5px solid rgba(0, 0, 0, 0.3);
+    border-radius: 5px;
+    width: 5vw;
+    margin-right: 1vw;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2%;
+    align-items: center;
+    cursor: pointer;
+
+}
+.listButton{
+    position: absolute;
+    left: 2%;
+    top: 2%;
+    background: rgba(217, 217, 217, 0.3);
+    border-radius: 5px;
+    min-width: 2px;
+    height: 4%;
+    aspect-ratio: 1/1;
+    cursor: pointer;
+    z-index: 2;
+}
+.adding:hover, .listButton:hover{
+    background: rgba(217, 217, 217, 0.599);
+    
+}
+
+.list{
+    /* display: none; */
+    width: 40%;
+    position:fixed;
+    left:0%;
+    top:0%;
+    height: 100%;
+    background-color: rgba(46, 181, 188, 0.8);
+    z-index: 9999;
+}
+
 .main{
     width: 100%;
     display: flex;
@@ -19,22 +83,23 @@ body{
     flex-direction: column;
 }
 
-.temperature h1{
+.temperature .hight1{
     font-size: 6vw;
     margin:0;
     margin-block-start: 0;
     margin-block-end: 0;
+    font-weight: 700;
 }
-.temperature h2{
+.temperature .hight2{
     font-size: 2.5vw;
     margin:0;
 }
 
-.temperature h3{
+.temperature .hight3{
     font-size: 1.2vw;
     margin:-1vh 0 3vh 0;
 }
-.temperature h4{
+.temperature .hight4{
     font-size: 1vw;
     margin:0;
 }
@@ -57,12 +122,14 @@ body{
     justify-content: space-between;
 
 }
-.dayForecast{
+.dayForecastData{
     position: relative;
-    width: 100%;
-    aspect-ratio: 4/1;
+    width: 98%;
+    padding: 1%;
+    aspect-ratio: 4/0.98;
     border-radius: 20px;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(217, 217, 217, 0.4);
+    border: 0.5px solid rgba(0, 0, 0, 0.3);
 }
 .differentData{
     display: flex;
@@ -77,11 +144,24 @@ body{
     justify-content: space-between;
 
 }
-.tendaysForecast{
+.pollutionData{
     width:48%;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(217, 217, 217, 0.4);
     border-radius: 15px;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1%;
+    border: 0.5px solid rgba(0, 0, 0, 0.3);
+}
+.pollution{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2.5% 0;
+    width: 100%;
+    height: 95%;
 }
 .smallDatas{
     display: flex;
@@ -97,9 +177,10 @@ body{
     width:41%;
     padding: 2%;
     position: relative;
+    border: 0.5px solid rgba(0, 0, 0, 0.3);
     aspect-ratio: 1/1;
     border-radius: 15px;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(217, 217, 217, 0.4);
 }
 .rightContainer{
     position: relative;
@@ -115,7 +196,9 @@ body{
     height: 72.6%;
     border-radius: 15px;
     padding: 2%;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(217, 217, 217, 0.4);
+    border: 0.5px solid rgba(0, 0, 0, 0.3);
+
 
 }
 .bottomContainer{
@@ -129,8 +212,8 @@ body{
 
 .boxName{
     font-size: 1vw;
-    color: rgba(255, 255, 255, 0.3);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);;
+    color: rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);;
 }
 
 .cubeData{
@@ -142,3 +225,76 @@ body{
     bottom:2%;
     font-size: 0.8vw;
 }
+
+.weatherMap{
+    position: relative;
+    height: 92%;
+    width: 96%;
+    margin: 2%;
+}
+
+.dayForecast {
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    gap: 10px;
+    overflow-x: auto;
+    
+}
+.dayForecast::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+}
+
+.forecastItem {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 2%;
+    border-radius: 10px;
+}
+
+.forecastTime {
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.forecastIcon {
+    width: 100%;
+    min-height: 1px;
+    aspect-ratio: 1/1;
+}
+
+.forecastTemperature, .forecastTime {
+    font-size: 1.3vw;
+}
+
+.pollutionItem{
+    display: flex;
+    width: 80%;
+    padding: 2.5% 10%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-transform: uppercase;
+    font-size: 1.5vw;
+    /* border: 1px solid grey; */
+    margin: 0;
+    height: auto;
+
+}
+
+.cityItem{
+    display:flex;
+    flex-direction: row;
+    border: 2px solid grey;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0% 5%;
+}
+
+
+
