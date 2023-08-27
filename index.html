@@ -17,7 +17,7 @@
         </svg>
     </div>
     <div class="searching">
-        <div class="adding" onclick="">
+        <div class="adding">
             <svg width="15px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M15 12L12 12M12 12L9 12M12 12L12 9M12 12L12 15" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
                 <path d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round"/>
@@ -29,10 +29,10 @@
     </div>
     <div class="main">
         <div class="temperature">
-            <div class="hight2">Kramatorsk</div>
-            <div class="hight1">26</div>
-            <div class="hight3">Sunny</div>
-            <div class="hight4">31; 18;</div>
+            <div class="hight2"></div>
+            <div class="hight1"></div>
+            <div class="hight3"></div>
+            <div class="hight4"></div>
         </div>
         <div class="secondData">
             <div class="leftContainer">
@@ -94,19 +94,35 @@
         </div>
 
     </div>
+
     <div class="list">
+        <div class="escape">
+            <svg width="3vw" height="3vw" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="none">
+                <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                <g id="SVGRepo_iconCarrier"> <path stroke="#000000" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 23.5l15-15M23.5 23.5l-15-15"/> </g>
+            </svg>
+        </div>
+        <div class="items"></div>
 
     </div>
-    <template>
+    <template id="cityTemplate">
         <div class="cityItem">
             <div class="leftPart">
-                <h2>Kramatorsk</h2>
-                <h3>19:42</h3>
-                <h4>Sunny</h4>
+                <h2></h2>
+                <h3></h3>
+                <h4></h4>
             </div>
             <div class="rightPart">
-                <h1>25</h1>
-                <h4>12:23 12:23</h4>
+                <h1></h1>
+                <h4></h4>
+            </div>
+            <div class="remove">
+                <svg width="1.5vw" height="1.5vw" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" fill="none">
+                    <g id="SVGRepo_bgCarrier" stroke-width="0"/>
+                    <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"/>
+                    <g id="SVGRepo_iconCarrier"> <path stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.5 23.5l15-15M23.5 23.5l-15-15"/> </g>
+                </svg>
             </div>
         </div>
     </template>

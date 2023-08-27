@@ -5,6 +5,7 @@ let globalLat = 0;
 let globalLon = 0;
 const mapUrl = `https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${apiKey}`
 const googleKey = 'AIzaSyCh3wa3v6OYQy3VYG4lhmEcHBM03p3mjPo';
+let timeZone;
 
 const changeBackgroundColor = (icon) =>{
   let bgElement = document.querySelector('.bg');
@@ -270,7 +271,6 @@ const calculateCardinalDirection = (degrees) => {
   }
 }
 
-
 async function fetchWeatherData(cityName, apiKey) {
   const geoApiUrl = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=5&appid=${apiKey}`;
   
@@ -360,6 +360,8 @@ async function fetchWeatherData(cityName, apiKey) {
       const tendaysForecastContainer = document.querySelector('.dayForecast');
       tendaysForecastContainer.innerHTML = '';
 
+      timeZone = weatherData.timezone;
+
       forecastData.forEach(forecast => {
           const forecastItem = document.createElement('div');
           forecastItem.classList.add('forecastItem');
@@ -406,17 +408,140 @@ async function fetchWeatherData(cityName, apiKey) {
       console.error('There was a problem with the fetch operation:', error);
   }
 }
+function initMap() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var latLng = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude
+      };
+      console.log(latLng)
+      var geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ 'location': latLng }, function(results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+          if (results[0]) {
+            var addressComponents = results[0].address_components;
+            var city = "";
+            for (var i = 0; i < addressComponents.length; i++) {
+              var types = addressComponents[i].types;
+              if (types.includes('locality')) {
+                city = addressComponents[i].long_name;
+                break;
+              }
+            }
+            return city;
+          }
+        } else {
+          return 'Kramatorsk';
+        }
+      });
+    });
+  } else {
+    return 'Kramatorsk';
+  }
+}
 
+function addCityItem() {
+  const list = document.querySelector('.items');
+  const weatherData = localStorage.getItem('weatherData');
+  list.innerHTML = ''
 
-fetchWeatherData('Kramatorsk', apiKey)
+  const data = weatherData ? JSON.parse(weatherData) : [];
+  data.forEach((itemData, index) => {
+    const cityItem = cityTemplate.content.cloneNode(true);
+    const adjustedTimestamp = new Date().getTime() + (itemData.time * 1000);
+    const adjustedTime = new Date(adjustedTimestamp).toLocaleTimeString("en-US", {
+        timeZone: "UTC",
+        hour12: false,
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+
+    const leftPart = cityItem.querySelector('.leftPart');
+    leftPart.querySelector('h2').textContent = itemData.name;
+    leftPart.querySelector('h3').textContent = adjustedTime;
+    leftPart.querySelector('h4').textContent = itemData.weather;
+    leftPart.addEventListener('click', () => {
+      fetchWeatherData(itemData.name, apiKey)
+    });
+
+    const rightPart = cityItem.querySelector('.rightPart');
+    rightPart.querySelector('h1').textContent = itemData.temp;
+    rightPart.querySelector('h4').textContent = itemData.maxMin;
+
+    const removeButton = cityItem.querySelector('.remove');
+    removeButton.addEventListener('click', () => {
+      data.splice(index, 1);
+      localStorage.setItem('weatherData', JSON.stringify(data));
+      const cityItem = removeButton.closest('.cityItem');
+      if (cityItem && cityItem.parentNode === list) {
+          list.removeChild(cityItem);
+      }
+    });
+
+    if (index === data.length - 1) {
+      cityItem.querySelector('.cityItem').style.border = 'none';
+    }
+
+    list.appendChild(cityItem);
+});
+
+}
+
+const initCityName = initMap()
+console.log(initCityName)
+fetchWeatherData(initCityName || 'New York', apiKey)
 const cityInput = document.getElementById("cityInput");
 const searchButton = document.getElementById("searchButton");
+const existingData = localStorage.getItem('weatherData');
+if(!existingData)localStorage.setItem('weatherData', '[]');
 searchButton.addEventListener("click", () => {
   const cityName = cityInput.value;
   if (cityName) {
     fetchWeatherData(cityName, apiKey)
   }
 });
+
+
+const addButton = document.querySelector('.adding');
+addButton.addEventListener('click', () => {
+    const existingData = localStorage.getItem('weatherData');
+    let dataList = existingData ? JSON.parse(existingData) : [];
+
+    const dataExists = dataList.some(item => item.lat === globalLat && item.lon === globalLon);
+    if (dataExists) {
+        return;
+    }
+    const data = {
+        name: document.querySelector('.hight2').textContent,
+        time: timeZone,
+        weather: document.querySelector('.hight3').textContent,
+        temp: document.querySelector('.hight1').textContent,
+        maxMin: document.querySelector('.hight4').textContent,
+        lat: globalLat,
+        lon: globalLon,
+    };
+
+    dataList.push(data);
+
+    localStorage.setItem('weatherData', JSON.stringify(dataList));
+    addCityItem()
+});
+
+
+const listButton = document.querySelector('.listButton');
+const escapeButton = document.querySelector('.escape');
+const list = document.querySelector('.list');
+
+listButton.addEventListener('click', () => {
+    list.style.display = 'flex';
+});
+addCityItem()
+
+escapeButton.addEventListener('click', () => {
+    list.style.display = 'none';
+});
+
 
 
 
