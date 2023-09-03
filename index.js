@@ -4,7 +4,6 @@ const weatherApiUrl = "https://api.openweathermap.org/data/2.5/weather";
 let globalLat = 0;
 let globalLon = 0;
 const mapUrl = `https://tile.openweathermap.org/map/precipitation_new/{z}/{x}/{y}.png?appid=${apiKey}`
-const googleKey = 'AIzaSyCh3wa3v6OYQy3VYG4lhmEcHBM03p3mjPo';
 let timeZone;
 
 const changeBackgroundColor = (icon) =>{
